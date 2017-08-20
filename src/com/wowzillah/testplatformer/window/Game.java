@@ -7,6 +7,7 @@ import java.awt.image.BufferStrategy;
 import java.util.Random;
 
 import com.wowzillah.testplatformer.framework.GameObject;
+import com.wowzillah.testplatformer.framework.KeyInput;
 import com.wowzillah.testplatformer.framework.ObjectId;
 import com.wowzillah.testplatformer.objects.Block;
 import com.wowzillah.testplatformer.objects.Player;
@@ -32,9 +33,11 @@ public class Game extends Canvas implements Runnable
 		HEIGHT = getHeight();
 		handler = new Handler();
 		
-		handler.addObject(new Player(100, 100, ObjectId.Player));
+		handler.addObject(new Player(100, 100, handler, ObjectId.Player));
 		
 		handler.createLevel();
+		
+		this.addKeyListener(new KeyInput(handler));
 	}
 	
 	public synchronized void start()
