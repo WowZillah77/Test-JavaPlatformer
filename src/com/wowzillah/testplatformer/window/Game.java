@@ -5,11 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import com.wowzillah.testplatformer.framework.GameObject;
 import com.wowzillah.testplatformer.framework.KeyInput;
 import com.wowzillah.testplatformer.framework.ObjectId;
+import com.wowzillah.testplatformer.framework.Texture;
 import com.wowzillah.testplatformer.objects.Block;
 import com.wowzillah.testplatformer.objects.Player;
 
@@ -24,9 +26,13 @@ public class Game extends Canvas implements Runnable
 	private Thread thread;
 	public static int WIDTH, HEIGHT;
 	
+	private BufferedImage level=null;
+	
+	
 	//Object
 	Handler handler;
 	Camera cam;
+	static Texture tex;
 	
 	Random rand = new Random();
 	
@@ -34,13 +40,20 @@ public class Game extends Canvas implements Runnable
 	{
 		WIDTH = getWidth();
 		HEIGHT = getHeight();
+		
+		tex = new Texture();
+		
+		BufferedImageLoader loader= new BufferedImageLoader();
+		level = loader.loadImage("/level.png");//loading the level
 		handler = new Handler();
 		
 		cam=new Camera(0,0);
 		
-		handler.addObject(new Player(100, 100, handler, ObjectId.Player));
+		LoadImageLevel(level);
 		
-		handler.createLevel();
+		//handler.addObject(new Player(100, 100, handler, ObjectId.Player));
+		
+		//handler.createLevel();
 		
 		this.addKeyListener(new KeyInput(handler));
 	}
@@ -134,6 +147,39 @@ public class Game extends Canvas implements Runnable
 		
 		g.dispose();
 		bs.show();
+	}
+	
+	private void LoadImageLevel(BufferedImage image)
+	{
+		int w = image.getWidth();
+		int h = image.getHeight();
+		
+		System.out.println("width, height :"+ w + " "+ h);
+		
+		for(int xx=0;xx<h;xx++)
+		{
+			for(int yy=0;yy<w;yy++)
+			{
+				int pixel = image.getRGB(xx, yy);
+				int red = (pixel >>16) & 0xff;
+				int green =(pixel >> 8) & 0xff;
+				int blue =(pixel) & 0xff;
+				
+				// Add Block(White Color on Level PNG)
+				if(red == 255 && green ==255 & blue==255) handler.addObject(new Block(xx*32, yy*32,0, ObjectId.Block));
+				
+				// Add Player(Blue Color on Level PNG)
+				if(red == 0 && green ==0 & blue==255) handler.addObject(new Player(xx*32, yy*32, handler, ObjectId.Player));
+				
+			}
+		}
+		
+		
+	}
+	
+	public static Texture getInstance()
+	{
+		return tex;
 	}
 	
 	public static void main(String arg[])
