@@ -50,6 +50,12 @@ int key = e.getKeyCode();
 			{
 				if(key == KeyEvent.VK_D) tempObject.setVelX(0);
 				if(key == KeyEvent.VK_A) tempObject.setVelX(0);
+				if(key == KeyEvent.VK_SPACE  &&!tempObject.isJumping()) 
+					{
+					tempObject.setJumping(true);
+					tempObject.setVelY(-10);
+					}
+				
 			}
 		}
 	}

@@ -51,13 +51,37 @@ public class Player extends GameObject{
 			
 			if(tempObject.getId() == ObjectId.Block)
 			{
+				if(getBoundsTop().intersects(tempObject.getBounds()))
+				{
+					y= tempObject.getY()+32;
+					velY=0;
+					
+				}
+				
 				if(getBounds().intersects(tempObject.getBounds()))
 				{
 					y= tempObject.getY() - height;
 					velY=0;
 					falling=false;
 					jumping=false;
-				}
+				}else
+					falling = true;
+			}
+			
+			//RIGHT
+			if(getBoundsRight().intersects(tempObject.getBounds()))
+			{
+				x= tempObject.getX()-width;
+				
+				
+			}
+			
+			//LEFT
+			if(getBoundsLeft().intersects(tempObject.getBounds()))
+			{
+				x= tempObject.getX()+35;
+				
+				
 			}
 		}
 	}
