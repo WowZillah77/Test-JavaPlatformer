@@ -32,10 +32,30 @@ public class Block  extends GameObject
 	
 	public void render(Graphics g) 
 	{
-		if(type==0)//dirt block
+		if(type==0)//Rock  block
 			g.drawImage(tex.block[0], (int)x, (int)y, null);
-		if(type==1)//grass block
+		if(type==1)//Dirt block
 			g.drawImage(tex.block[1], (int)x, (int)y, null);
+		if(type==2)//Middle grass block
+			g.drawImage(tex.block[2], (int)x, (int)y, null);
+		if(type==3)//left grass block
+			g.drawImage(tex.block[3], (int)x, (int)y, null);
+		if(type==4)//right grass block
+			g.drawImage(tex.block[4], (int)x, (int)y, null);
+		if(type==5)//left Rock block
+			g.drawImage(tex.block[5], (int)x, (int)y, null);
+		if(type==6)//right rock block
+			g.drawImage(tex.block[6], (int)x, (int)y, null);
+		if(type==7)//right rock block
+			g.drawImage(tex.block[7], (int)x, (int)y, null);
+		
+		if(type==8)//left top moss block
+			g.drawImage(tex.block[8], (int)x, (int)y, null);
+		if(type==9)//center top moss block
+			g.drawImage(tex.block[9], (int)x, (int)y, null);
+		if(type==10)//right top moss block
+			g.drawImage(tex.block[10], (int)x, (int)y, null);
+		
 		
 	}
 
